@@ -4,34 +4,284 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Влад, с днём рождения!</title>
-<meta name="description" content="Открытка для Влада и ночной трамвай с пожеланиями.">
+<meta name="description" content="Поздравление для крёстного и бесконечная лента пожеланий.">
 <meta property="og:title" content="Влад, с днём рождения!">
-<meta name="theme-color" content="#182522">
+<meta property="og:description" content="Пожелания крёстному. Одно можно вытянуть на удачу.">
+<meta name="theme-color" content="#f2eadb">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700;900&family=Playfair+Display:ital,wght@0,700;1,600&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;1,600&display=swap">
+<style>
+  :root {
+    --paper: #f2eadb;
+    --ink: #232d27;
+    --green: #2c5146;
+    --red: #913b27;
+    --rule: #867f6e;
+    --muted: #52534b;
+    --sans: "Golos Text", system-ui, sans-serif;
+    --serif: "Playfair Display", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1rem/1.6 var(--sans); }
+  h1, h2, p { margin: 0; }
+  :focus-visible { outline: 2px solid var(--red); outline-offset: 6px; }
+  .frame { width: min(1140px, calc(100% - 2 * clamp(21px, 6vw, 82px))); margin-inline: auto; }
+  header { padding-top: clamp(24px, 5.8vw, 74px); }
+  .mast { padding-bottom: .85rem; border-bottom: 1px solid var(--rule); color: var(--green); font-weight: 700; }
+  .cover {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, .42fr);
+    align-items: end;
+    gap: clamp(34px, 6vw, 85px);
+    padding-block: clamp(36px, 6vw, 86px);
+  }
+  h1 { font: 700 clamp(2.8rem, 7.4vw, 7.5rem)/.99 var(--serif); letter-spacing: -.057em; }
+  h1 em { display: block; color: var(--red); font-weight: 600; }
+  .note { max-width: 43ch; margin-top: clamp(18px, 3vw, 38px); font-size: clamp(1.08rem, 1.65vw, 1.31rem); text-wrap: pretty; }
+  .slip {
+    position: relative;
+    min-height: 12rem;
+    padding: 22px 22px 18px;
+    border: 1px solid var(--green);
+    background: #e4ead8;
+    box-shadow: 5px 5px 0 #283f311d;
+    transform: rotate(-2deg);
+  }
+  .slip[hidden] { display: none; }
+  .slip::before { position: absolute; top: 9px; right: 12px; color: var(--green); content: "✳"; }
+  .slip h2 { padding-right: 1.05rem; color: var(--green); font: italic 600 1.55rem/1.16 var(--serif); }
+  #drawn { margin-top: .65em; line-height: 1.48; }
+  button {
+    min-height: 44px;
+    padding: 8px 13px;
+    border: 1px solid currentColor;
+    border-radius: 0;
+    color: var(--green);
+    background: transparent;
+    font: 700 .9rem/1.2 var(--sans);
+    cursor: pointer;
+  }
+  button:hover { color: var(--paper); background: var(--green); border-color: var(--green); }
+  #draw { margin-top: 15px; }
+  main { padding-block: clamp(26px, 4vw, 50px) 85px; border-top: 1px solid var(--rule); }
+  main h2 { margin-bottom: 24px; font: 600 italic clamp(1.6rem, 3.4vw, 2.75rem)/1.18 var(--serif); color: var(--green); }
+  .stream { display: flex; flex-wrap: wrap; align-items: baseline; gap: .16em .48em; font-size: clamp(1.18rem, 2.9vw, 2.4rem); line-height: 1.38; }
+  .it { display: inline-block; max-width: 100%; overflow-wrap: anywhere; animation: arrive .42s ease both; }
+  .cm { color: var(--muted); }
+  .wa, .wf { font-family: var(--serif); font-style: italic; font-weight: 600; }
+  .wb { color: var(--red); font-size: .87em; font-weight: 900; }
+  .wc { color: var(--muted); font-size: .84em; }
+  .wd { color: var(--green); font-family: var(--serif); font-size: 1.17em; font-weight: 700; }
+  .we { font-size: .93em; font-weight: 700; }
+  .dots { color: var(--red); }
+  .more { margin-top: 29px; }
+  .more[hidden] { display: none; }
+  #sentinel { height: 1px; }
+  @keyframes arrive { from { opacity: 0; transform: translateY(5px); } }
+  @media (max-width: 690px) {
+    .cover { grid-template-columns: 1fr; align-items: start; }
+    .slip { width: min(100% - 10px, 350px); min-height: 0; margin-inline: 5px; }
+    h1 { font-size: clamp(2.65rem, 10vw, 4.2rem); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .it { animation: none; }
+  }
+</style>
 </head>
 <body>
-<main class="journey" id="top">
-  <div class="stage">
-    <div class="sky" aria-hidden="true"></div>
-    <div class="render" aria-hidden="true"></div>
-    <div class="tram-preview" aria-hidden="true">
-      <span></span><i></i>
+<header class="frame">
+  <p class="mast">Крёстному</p>
+  <div class="cover">
+    <div>
+      <h1>Влад,<em>с днём рождения!</em></h1>
+      <p class="note">Спасибо, что ты мой крёстный. Желаю, чтобы дома всегда ждали, рядом были свои и оставалось время на всё, что тебе по-настоящему нравится.</p>
     </div>
-    <header class="opening">
-      <h1>Влад,<em>с днём<br> рождения!</em></h1>
-      <p>Спасибо, что ты мой крёстный. Пусть дома будет тепло, рядом — свои, а на всё важное хватает времени.</p>
-      <a class="follow" href="#ride">Поехали <span aria-hidden="true">↓</span></a>
-    </header>
-    <div class="route">
-      <span>Листай, чтобы ехать дальше</span>
-      <a href="#top">В начало <span aria-hidden="true">↑</span></a>
-    </div>
+    <aside class="slip" aria-labelledby="luck-title" hidden>
+      <h2 id="luck-title">Пожелание на удачу</h2>
+      <p id="drawn" aria-live="polite">Вытяни одно на этот год.</p>
+      <button id="draw" type="button">Вытянуть пожелание</button>
+    </aside>
   </div>
-  <span id="ride"></span>
+</header>
+<main class="frame">
+  <h2>И ещё желаю тебе…</h2>
+  <div id="stream" class="stream">
+    <span id="dots" class="dots" aria-hidden="true">…</span>
+    <noscript>Здоровья, своих рядом, хороших новостей и побольше времени для себя!</noscript>
+  </div>
+  <button class="more" type="button" id="more" hidden>Ещё пожеланий</button>
+  <div id="sentinel"></div>
 </main>
-<script type="module" src="scene.bundle.js"></script>
+<script>
+
+class DCLogic { constructor(){ this.props = {}; } setState(s){ Object.assign(this.state, s); paint(); } }
+
+class Component extends DCLogic {
+  state = { count: 48 };
+  words = [];
+  recent = [];
+  seed = 20261123;
+  lastAdd = 0;
+
+  base = ['крепкого здоровья','душевного покоя','своих рядом','хороших новостей','тёплых встреч','лёгких дорог','свободных вечеров','радости','сил на задуманное','счастья','сбывшихся планов','времени на себя','домашнего тепла','поездок к морю','поводов смеяться','честных людей рядом','любимого дела','удачи','спокойных выходных','вкусных завтраков','громкой музыки в машине','крепкого сна','интересных разговоров','неожиданных подарков','весёлых историй','света','свободы','достатка','уютных зим','солнечных дней','доверия','новых открытий'];
+
+  nouns = [
+    ['счастья','n'],['здоровья','n'],['радости','f'],['любви','f'],['удачи','f'],['тепла','n'],['света','m'],['добра','n'],['мира','m'],['гармонии','f'],['вдохновения','n'],['процветания','n'],['благополучия','n'],['нежности','f'],['веселья','n'],['смеха','m'],['улыбок','p'],['энергии','f'],['сил','p'],['бодрости','f'],['уверенности','f'],['спокойствия','n'],['достатка','m'],['изобилия','n'],['красоты','f'],['молодости','f'],['свежести','f'],['лёгкости','f'],['яркости','f'],['насыщенности','f'],['приключений','p'],['открытий','p'],
+    ['побед','p'],['успехов','p'],['верных друзей','x'],['путешествий','p'],['впечатлений','p'],['терпения','n'],['мудрости','f'],['свободы','f'],['драйва','m'],['азарта','m'],['сюрпризов','p'],['чудес','p'],['восторга','m'],['уюта','m'],['отдыха','m'],['позитива','m'],['оптимизма','m'],['юмора','m'],['смелости','f'],['решимости','f'],['стойкости','f'],['доброты','f'],['взаимопонимания','n'],['поддержки','f'],['заботы','f'],['внимания','n'],['признания','n'],['везения','n'],['солнечных дней','x'],['весны','f'],['музыки','f'],['праздников','p'],['подарков','p'],['объятий','p'],['встреч','p'],['полёта','m'],['достижений','p'],['рекордов','p'],['мотивации','f'],['баланса','m'],['понимания','n'],['искренности','f'],['страсти','f'],['огня','m'],['роста','m'],['развития','n'],['знаний','p'],['мастерства','n'],['таланта','m'],['идей','p'],['свершений','p'],['возможностей','p'],['перспектив','p'],['шансов','p'],['удовольствия','n'],['наслаждения','n'],['блаженства','n'],['зелёных светофоров','x'],['быстрого интернета','x'],['вкусной еды','x'],['хорошей погоды','x'],['звёзд с неба','x'],['спокойных ночей','x'],['новых горизонтов','x'],['исполнения желаний','x'],['чистого неба','x'],['лёгкого пути','x'],['крепкого сна','x'],['денег','p'],['тишины','f'],['сил на всё задуманное','x'],['мурашек от счастья','x'],['родных рядом','x'],['вкуса к жизни','x']
+  ];
+
+  adj = [
+    ['огромного','огромной','огромных'],['бесконечного','бесконечной','бесконечных'],['настоящего','настоящей','настоящих'],['безграничного','безграничной','безграничных'],['яркого','яркой','ярких'],['тёплого','тёплой','тёплых'],['искреннего','искренней','искренних'],['невероятного','невероятной','невероятных'],['космического','космической','космических'],['щедрого','щедрой','щедрых'],['нескончаемого','нескончаемой','нескончаемых'],['волшебного','волшебной','волшебных'],['вечного','вечной','вечных'],['большого','большой','больших'],['неземного','неземной','неземных'],['сумасшедшего','сумасшедшей','сумасшедших'],['оглушительного','оглушительной','оглушительных']
+  ];
+
+  cls = ['wa','wc','wb','we','wd','wf','wc','wa','we','wb','wc','wf'];
+
+  extra = [
+    ['энтузиазма','m'],['покоя','m'],['порядка','m'],['комфорта','m'],['кайфа','m'],['успеха','m'],['прогресса','m'],['прорыва','m'],['триумфа','m'],['фарта','m'],['задора','m'],['куража','m'],['адреналина','m'],['смысла','m'],['уважения','n'],['дохода','m'],['отпуска','m'],['загара','m'],['рассвета','m'],['заката','m'],['огонька','m'],['интереса','m'],['настроя','m'],['трепета','m'],['шарма','m'],['стиля','m'],['вкуса','m'],['аромата','m'],['праздника','m'],['салюта','m'],['фейерверка','m'],['карнавала','m'],['уюта в доме','x'],
+    ['обожания','n'],['очарования','n'],['доверия','n'],['единения','n'],['согласия','n'],['лета','n'],['солнца','n'],['моря','n'],['богатства','n'],['изящества','n'],['мужества','n'],['упорства','n'],['усердия','n'],['бесстрашия','n'],['озорства','n'],['остроумия','n'],['жизнелюбия','n'],['долголетия','n'],['великодушия','n'],['благородства','n'],['дружелюбия','n'],['радушия','n'],['умиротворения','n'],['равновесия','n'],['совершенства','n'],['торжества','n'],['ликования','n'],['изумления','n'],['творчества','n'],['чутья','n'],['предвкушения','n'],['волшебства','n'],['озарения','n'],['обаяния','n'],['вдохновения на подвиги','x'],
+    ['дерзости','f'],['отваги','f'],['воли','f'],['мечты','f'],['фантазии','f'],['романтики','f'],['ласки','f'],['преданности','f'],['верности','f'],['щедрости','f'],['честности','f'],['открытости','f'],['гибкости','f'],['выносливости','f'],['ловкости','f'],['сноровки','f'],['смекалки','f'],['интуиции','f'],['харизмы','f'],['грации','f'],['элегантности','f'],['беззаботности','f'],['безмятежности','f'],['природы','f'],['прохлады','f'],['прибыли','f'],['зарплаты','f'],['стабильности','f'],['надёжности','f'],['безопасности','f'],['востребованности','f'],['самореализации','f'],['независимости','f'],['целеустремлённости','f'],['энергичности','f'],['активности','f'],['жизнерадостности','f'],['игривости','f'],['сердечности','f'],['теплоты','f'],['душевности','f'],['любознательности','f'],['силы','f'],['мощи','f'],['славы','f'],['известности','f'],['популярности','f'],['поэзии','f'],['ясности','f'],['искры','f'],['весёлой суеты','x'],
+    ['мечтаний','p'],['желаний','p'],['планов','p'],['проектов','p'],['наград','p'],['медалей','p'],['кубков','p'],['трофеев','p'],['высот','p'],['вершин','p'],['озарений','p'],['мгновений','p'],['моментов','p'],['вечеров','p'],['рассветов','p'],['закатов','p'],['каникул','p'],['выходных','p'],['поездок','p'],['дорог','p'],['историй','p'],['воспоминаний','p'],['фотографий','p'],['комплиментов','p'],['единомышленников','p'],['союзников','p'],['звёзд','p'],['огней','p'],['искр','p'],['смешинок','p'],['шуток','p'],['торжеств','p'],['пикников','p'],['концертов','p'],['фестивалей','p'],['вечеринок','p'],['танцев','p'],['песен','p'],['книг','p'],['фильмов','p'],['игр','p'],['лайков','p'],['бонусов','p'],['премий','p'],['миллионов','p'],['сокровищ','p'],['находок','p'],['совпадений','p'],['тортов','p'],['конфет','p'],['пирогов','p'],['вкусняшек','p'],['обнимашек','p'],['знакомств','p'],['удивлений','p'],['маленьких радостей','x'],
+    ['ветра в паруса','x'],['силы духа','x'],['здравого смысла','x'],['бабочек в животе','x'],['знаков судьбы','x'],['кофе по утрам','x'],['тёплого пледа','x'],['уютных вечеров','x'],['долгих прогулок','x'],['верных решений','x'],['добрых новостей','x'],['лёгких понедельников','x'],['длинных выходных','x'],['отличного настроения','x'],['смелых идей','x'],['великих дел','x'],['крутых поворотов','x'],['места под солнцем','x'],['попутного ветра','x'],['ясных целей','x'],['интересных людей вокруг','x'],['тёплых слов','x'],['настоящих чувств','x'],['любимого дела','x'],['дел по душе','x'],['счастливых случайностей','x'],['звёздного неба','x'],['морского бриза','x'],['шума волн','x'],['горячего чая','x'],['тёплого солнца','x'],['бесконечного лета','x'],['безоблачного неба','x'],['сбывшихся планов','x'],['исполненных обещаний','x'],['мира во всём мире','x'],['вкусных завтраков','x'],['ярких снов','x'],['широкой улыбки','x'],['лёгкой руки','x'],['светлой головы','x'],['горящих глаз','x'],['доброго сердца','x'],['крепкого плеча рядом','x'],['повода для гордости','x'],['побед над собой','x'],['второго дыхания','x'],['полной зарядки','x'],['хорошей музыки в наушниках','x'],['свободных вечеров','x'],['запаха весны','x'],['первого снега','x'],['тёплого лета','x'],['чудесных мгновений','x']
+  ];
+
+  adj2 = [
+    ['безмерного','безмерной','безмерных'],['лучезарного','лучезарной','лучезарных'],['головокружительного','головокружительной','головокружительных'],['бескрайнего','бескрайней','бескрайних'],['неиссякаемого','неиссякаемой','неиссякаемых'],['абсолютного','абсолютной','абсолютных'],['чистого','чистой','чистых'],['незабываемого','незабываемой','незабываемых'],['потрясающего','потрясающей','потрясающих'],['фантастического','фантастической','фантастических'],['сказочного','сказочной','сказочных'],['искрящегося','искрящейся','искрящихся'],['солнечного','солнечной','солнечных'],['отборного','отборной','отборных'],['неудержимого','неудержимой','неудержимых'],['запредельного','запредельной','запредельных'],['легендарного','легендарной','легендарных'],['ежедневного','ежедневной','ежедневных'],['вселенского','вселенской','вселенских'],['море','море','море']
+  ];
+
+  draw(key, pool) {
+    if (!this[key] || !this[key].length) {
+      let arr = pool.slice();
+      if (!this[key + 'Init']) {
+        this[key + 'Init'] = true;
+        if (key === 'nDeck') arr = arr.filter((p) => this.base.indexOf(p[0]) === -1);
+      }
+      for (let k = arr.length - 1; k > 0; k--) {
+        const j = Math.floor(this.rand() * (k + 1));
+        const t = arr[k]; arr[k] = arr[j]; arr[j] = t;
+      }
+      this[key] = arr;
+    }
+    return this[key].pop();
+  }
+
+  rand() {
+    this.seed = (this.seed * 1664525 + 1013904223) % 4294967296;
+    return this.seed / 4294967296;
+  }
+
+  nextWord(i) {
+    if (i < this.base.length) return this.base[i];
+    this.allN = this.allN || this.nouns.concat(this.extra);
+    this.allA = this.allA || this.adj.concat(this.adj2.filter((a) => a[0] !== 'море'));
+    const pick = this.draw('nDeck', this.allN);
+    if (pick[1] !== 'x' && this.rand() < 0.35) {
+      const a = this.draw('aDeck', this.allA);
+      const form = pick[1] === 'f' ? a[1] : pick[1] === 'p' ? a[2] : a[0];
+      return form + ' ' + pick[0];
+    }
+    return pick[0];
+  }
+
+  ensure(n) {
+    while (this.words.length < n) {
+      const i = this.words.length;
+      const r = this.rand();
+      const c = this.cls[(i * 5 + Math.floor(r * 4)) % this.cls.length];
+      this.words.push({ text: this.nextWord(i), cls: 'it ' + c });
+    }
+  }
+
+  setSentinel = (el) => { this.sentinel = el; };
+
+  add = (n) => {
+    const now = Date.now();
+    if (now - this.lastAdd < 120) return;
+    this.lastAdd = now;
+    this.setState({ count: this.state.count + (n || 40) });
+  };
+
+  more = () => { this.add(60); };
+
+  check = () => {
+    if (!this.sentinel) return;
+    const r = this.sentinel.getBoundingClientRect();
+    const vh = window.innerHeight || 800;
+    if (r.top < vh * 2.2) this.add(40);
+  };
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.check, true);
+    window.addEventListener('wheel', this.check, { passive: true });
+    window.addEventListener('touchmove', this.check, { passive: true });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.check, true);
+    window.removeEventListener('wheel', this.check);
+    window.removeEventListener('touchmove', this.check);
+  }
+
+  renderVals() {
+    this.ensure(this.state.count);
+    return {
+      words: this.words.slice(0, this.state.count),
+
+      setSentinel: this.setSentinel,
+      more: this.more
+    };
+  }
+}
+
+const comp = new Component();
+const stream = document.getElementById('stream');
+const dots = document.getElementById('dots');
+
+let shown = 0;
+function paint() {
+  const v = comp.renderVals();
+  const frag = document.createDocumentFragment();
+  for (; shown < v.words.length; shown++) {
+    const w = v.words[shown];
+    const s = document.createElement('span');
+    s.className = w.cls;
+    s.textContent = w.text;
+    const c = document.createElement('span');
+    c.className = 'cm';
+    c.textContent = ',';
+    s.appendChild(c);
+    frag.appendChild(s);
+  }
+  stream.insertBefore(frag, dots);
+
+}
+comp.setSentinel(document.getElementById('sentinel'));
+const more = document.getElementById('more');
+more.addEventListener('click', () => comp.more());
+more.hidden = false;
+
+const luckyWishes = [
+  'Пусть найдётся дело, ради которого захочется встать пораньше даже в выходной.',
+  'Пусть одна спонтанная поездка окажется лучшим воспоминанием за год.',
+  'Пусть будет больше вечеров, когда можно никуда не спешить.',
+  'Пусть близкие почаще собираются за одним столом.',
+  'Пусть то, на что давно не хватало времени, наконец случится.',
+  'Пусть в этом году хотя бы один смелый план обернётся хорошей историей.'
+];
+let luckyIndex = Math.floor(Math.random() * luckyWishes.length);
+const draw = document.getElementById('draw');
+const drawn = document.getElementById('drawn');
+draw.closest('.slip').hidden = false;
+draw.addEventListener('click', () => {
+  drawn.textContent = luckyWishes[luckyIndex];
+  luckyIndex = (luckyIndex + 1) % luckyWishes.length;
+  draw.textContent = 'Вытянуть ещё';
+});
+paint();
+comp.componentDidMount();
+
+</script>
 </body>
 </html>
