@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Влад, с днём рождения!</title>
+<meta name="description" content="Открытка для Влада и ночной трамвай с пожеланиями.">
+<meta property="og:title" content="Влад, с днём рождения!">
+<meta name="theme-color" content="#182522">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700;900&family=Playfair+Display:ital,wght@0,700;1,600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="journey" id="top">
+  <div class="stage">
+    <div class="sky" aria-hidden="true"></div>
+    <div class="render" aria-hidden="true"></div>
+    <div class="tram-preview" aria-hidden="true">
+      <span></span><i></i>
+    </div>
+    <header class="opening">
+      <h1>Влад,<em>с днём<br> рождения!</em></h1>
+      <p>Спасибо, что ты мой крёстный. Пусть дома будет тепло, рядом — свои, а на всё важное хватает времени.</p>
+      <a class="follow" href="#ride">Поехали <span aria-hidden="true">↓</span></a>
+    </header>
+    <div class="route">
+      <span>Листай, чтобы ехать дальше</span>
+      <a href="#top">В начало <span aria-hidden="true">↑</span></a>
+    </div>
+  </div>
+  <span id="ride"></span>
+</main>
+<script type="module" src="scene.bundle.js"></script>
+</body>
+</html>
