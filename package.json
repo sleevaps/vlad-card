@@ -1,0 +1,14 @@
+{
+  "name": "vlad-card",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild effect.js --bundle --minify --format=esm --outfile=effect.bundle.js --legal-comments=eof"
+  },
+  "dependencies": {
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}
