@@ -8,6 +8,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const artwork = document.querySelector('.prism');
 const cover = document.querySelector('.cover');
+const play = document.getElementById('prism-play');
 const phone = matchMedia('(max-width: 690px)');
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -55,12 +56,18 @@ function setup() {
   let mouseY = 0;
   let tiltX = 0;
   let tiltY = 0;
+  let optedIn = false;
+  let previewStarted = -Infinity;
+  const allowsMotion = () => optedIn || !motion.matches;
 
   function draw(now) {
     const dt = Math.min(.05, Math.max(0, (now - previous) / 1000));
     previous = now;
-    const moving = !motion.matches;
-    const target = moving ? MathUtils.clamp(window.scrollY / (cover.offsetHeight * .68), 0, 1) : 0;
+    const moving = allowsMotion();
+    const scrollProgress = MathUtils.clamp(window.scrollY / (cover.offsetHeight * .68), 0, 1);
+    const previewProgress = MathUtils.clamp((time - previewStarted) / 1.65, 0, 1);
+    const preview = optedIn ? .70 * Math.sin(previewProgress * Math.PI) : 0;
+    const target = moving ? Math.max(scrollProgress, preview) : 0;
     const smooth = 1 - Math.exp(-dt * 9.5);
     time += moving ? dt : 0;
     opening = moving ? MathUtils.lerp(opening, target, smooth) : 0;
@@ -91,7 +98,7 @@ function setup() {
   }
 
   function sync() {
-    if (lost || motion.matches || document.hidden || !visible) {
+    if (lost || !allowsMotion() || document.hidden || !visible) {
       if (frame) cancelAnimationFrame(frame);
       frame = 0;
       previous = 0;
@@ -116,6 +123,7 @@ function setup() {
   renderer.domElement.addEventListener('webglcontextlost', () => {
     lost = true;
     delete artwork.dataset.ready;
+    play.hidden = true;
     artwork.style.removeProperty('--spread');
     sync();
   });
@@ -123,6 +131,7 @@ function setup() {
     lost = false;
     resize();
     artwork.dataset.ready = 'true';
+    refreshControl();
     sync();
   });
 
@@ -133,19 +142,33 @@ function setup() {
   }).observe(artwork);
 
   cover.addEventListener('pointermove', event => {
-    if (event.pointerType === 'touch' || motion.matches) return;
+    if (event.pointerType === 'touch' || !allowsMotion()) return;
     const box = artwork.getBoundingClientRect();
     mouseX = MathUtils.clamp((event.clientX - box.left) / box.width * 2 - 1, -1, 1);
     mouseY = MathUtils.clamp((event.clientY - box.top) / box.height * 2 - 1, -1, 1);
   }, { passive: true });
   cover.addEventListener('pointerleave', () => { mouseX = mouseY = 0; });
   document.addEventListener('visibilitychange', sync);
+  function refreshControl() {
+    play.hidden = !motion.matches || lost;
+    play.textContent = optedIn ? 'Остановить анимацию' : 'Оживить призму';
+  }
+  play.addEventListener('click', () => {
+    optedIn = !optedIn;
+    if (optedIn) previewStarted = time;
+    refreshControl();
+    if (!lost) draw(performance.now());
+    sync();
+  });
   motion.addEventListener('change', () => {
+    optedIn = false;
+    refreshControl();
     if (!lost) draw(performance.now());
     sync();
   });
   resize();
   artwork.dataset.ready = 'true';
+  refreshControl();
   sync();
 }
 

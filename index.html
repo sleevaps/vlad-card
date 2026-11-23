@@ -96,6 +96,8 @@
     font: 700 .9rem/1.2 var(--sans);
     cursor: pointer;
   }
+  .prism-play { margin-top: 20px; }
+  .prism-play[hidden] { display: none; }
   button:hover { color: var(--paper); background: var(--green); border-color: var(--green); }
   main { padding-block: clamp(26px, 4vw, 50px) 85px; border-top: 1px solid var(--rule); }
   main h2 { margin-bottom: 24px; font: 600 italic clamp(1.6rem, 3.4vw, 2.75rem)/1.18 var(--serif); color: var(--green); }
@@ -130,7 +132,10 @@
 <header class="frame">
   <p class="mast">Крёстному</p>
   <div class="cover">
-    <h1>Влад,<em>с днём рождения!</em></h1>
+    <div>
+      <h1>Влад,<em>с днём рождения!</em></h1>
+      <button class="prism-play" id="prism-play" type="button" hidden>Оживить призму</button>
+    </div>
     <div class="prism" aria-hidden="true">
       <i class="prism-still"></i>
       <span class="prism-word">здоровья</span>
@@ -299,6 +304,6 @@ paint();
 comp.componentDidMount();
 
 </script>
-<script type="module" src="effect.bundle.js"></script>
+<script type="module" src="effect.bundle.js?v=motion-toggle"></script>
 </body>
 </html>
